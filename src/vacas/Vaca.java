@@ -1,5 +1,5 @@
 
-package practicasjava;
+package vacas;
 
 import java.util.Scanner;
 
@@ -29,6 +29,11 @@ public class Vaca {
         this.tipo = tipo;
         this.litros = litros;
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Vaca:\n" + "nombre=" + nombre + ", tipo=" + tipo + ", litros=" + litros + ", precio=" + precio;
     }
     
     
