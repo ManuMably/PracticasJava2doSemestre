@@ -1,6 +1,8 @@
 
 package practicasjava;
 
+import vacas.Establo;
+import vacas.Vaca;
 import java.util.Scanner;
 
 
