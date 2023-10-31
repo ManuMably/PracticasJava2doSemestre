@@ -1,6 +1,7 @@
 
-package practicasjava;
+package vacas;
 
+import vacas.Vaca;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -16,7 +17,7 @@ public class Establo {
     
     
     public static void cargarEstablo() {
-    String archivoEstablo = "C:\\Users\\Usuario\\Documents\\NetBeansProjects\\PracticasJava\\src\\practicasjava\\ArchivosPlanos\\Vacas.txt";
+    String archivoEstablo = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\PracticasJava\\PracticasJava2doSemestre\\src\\practicasjava\\ArchivosPlanos\\Vacas.txt";
 
     try (BufferedReader lector = new BufferedReader(new FileReader(archivoEstablo))) {
         String linea;
@@ -50,7 +51,7 @@ public class Establo {
 
     
     public static void guardarEstablo() {
-            String archivoEstablo = "C:\\Users\\Usuario\\Documents\\NetBeansProjects\\PracticasJava\\src\\practicasjava\\ArchivosPlanos\\Vacas.txt";
+            String archivoEstablo = "C:\\Users\\ROGER\\Documents\\NetBeansProjects\\PracticasJava\\PracticasJava2doSemestre\\src\\practicasjava\\ArchivosPlanos\\Vacas.txt";
 
             try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoEstablo))) {
                 for (int i = 0; i < n; i++) {
@@ -82,16 +83,13 @@ public class Establo {
             System.out.println("Vaca insertada.");
         }
     }
-        public static void mostrar(){
+        public static String mostrar(){
             int i;
-            String s;
+            String s = "";
                 for (i = 0; i < n; i++) {
-                    s = arregloVacas[i].getNombre();
-                    s = s + " \ncon litros: " + String.valueOf(arregloVacas[i].getLitros())+"\n"
-                            + "con precio: " + String.valueOf(arregloVacas[i].getPrecio())+"\n"
-                            + "de tipo: " + String.valueOf(arregloVacas[i].getTipo())+"\n";
-                    System.out.println(s + "\n");
+                    s += arregloVacas[i].toString();
                 }
+                return s;
             }
         
         //metodo baraja
@@ -113,9 +111,29 @@ public class Establo {
                 arregloVacas[j + 1] = auxVac;
             }
         }
+        public static int busquedaBinaria(float vaLitros) {   
+    int inicio = 0;
+    int fin = n - 1;
+
+    while (inicio <= fin) {
+        
+        int posm = (fin + inicio) / 2;
+        float litrosActual = arregloVacas[posm].getLitros();
+
+        if (litrosActual == vaLitros) {
+            return posm + 1;
+        } else if (litrosActual > vaLitros) {
+            inicio = posm + 1;
+        } else {
+            fin = posm - 1;
+        }
+    }
+
+    return -1; // Elemento no encontrado
+}
         
         //busqueda binaria 
-        public static void buscarPorNombreOrdenado(String nom) {
+        public static String buscarPorNombreOrdenado(String nom) {
             int inicio = 0;
             int fin = n - 1;
 
@@ -124,8 +142,8 @@ public class Establo {
                 int comparacion = arregloVacas[medio].getNombre().compareTo(nom);
 
                 if (comparacion == 0) {
-                    System.out.println("La vaca: " + nom + " se encuentra en la posición: " + medio);
-                    return; // Se encontró la vaca, podemos salir del método.
+                    String respuesta = "La vaca: " + nom + " se encuentra en la posición: " + (medio +1);
+                    return respuesta; // Se encontró la vaca, podemos salir del método.
                 } else if (comparacion < 0) {
                     inicio = medio + 1; // La vaca podría estar en la mitad derecha.
                 } else {
@@ -133,7 +151,7 @@ public class Establo {
                 }
             }
 
-            System.out.println("No se encontró la vaca.");
+            return "No se encontró la vaca.";
         }
         
         public static void insertarFinal(Vaca va) {
@@ -167,25 +185,7 @@ public static void ordenarPorLitros() {
             }
         }
 
-public static int busquedaBinaria(float vaLitros) {
-            int fin, inicio, posm;
-            inicio = 0;
-            fin = n - 1;
 
-            while (inicio <= fin) {
-                posm = (fin + inicio) / 2;
-                if (arregloVacas[posm].getLitros() == vaLitros) {
-                    return posm;
-                } else if (arregloVacas[posm].getLitros() < vaLitros) {
-                    inicio = posm + 1;
-                } else {
-                    fin = posm - 1;
-                }
-            }
-
-            // El elemento no se encontró, puedes devolver -1 o algún otro valor que indique que no se encontró.
-            return -1;
-        }
 
 public static void borrarMenosLechera() {
     if (n == 0) {
